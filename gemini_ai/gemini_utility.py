@@ -16,7 +16,14 @@ working_dir = os.path.dirname(os.path.abspath(__file__))
 
 # path of config_data file
 config_file_path = f"{working_dir}/config.json"
-config_data = json.load(open("config.json"))
+try:
+    with open("config.json", "r") as file:
+        config_data = json.load(file)
+except FileNotFoundError:
+    print("The config.json file was not found.")
+except json.JSONDecodeError:
+    print("Error decoding JSON from the config.json file.")
+# config_data = json.load(open("config.json"))
 
 # loading the GOOGLE_API_KEY
 GOOGLE_API_KEY = config_data["GOOGLE_API_KEY"]
